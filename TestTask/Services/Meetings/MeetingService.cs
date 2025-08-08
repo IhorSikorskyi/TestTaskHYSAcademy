@@ -30,6 +30,16 @@ public class MeetingService : IMeetingService
                 throw new ArgumentException($"User with ID {id} does not exist.");
         }
 
+        if (participantIds == null || participantIds.Count == 0)
+        {
+            throw new ArgumentException("At least one participant must be specified.");
+        }
+
+        if (durationMinutes <= TimeSpan.Zero)
+        {
+            throw new ArgumentException("Duration must be greater than zero.");
+        }
+
         if (earliestStart.Kind != DateTimeKind.Utc)
         {
             earliestStart = earliestStart.ToUniversalTime();
