@@ -28,10 +28,8 @@ namespace TestTask.Tests
         [InlineData("   ")]
         public void CreateUser_ShouldThrowArgumentNullException_WhenNameIsNullOrWhitespace(string invalidName)
         {
-            // Arrange
             var service = new UserService();
 
-            // Act & Assert
             var exception = Assert.Throws<ArgumentNullException>(() => service.CreateUser(invalidName));
             Assert.Contains("name", exception.ParamName, StringComparison.OrdinalIgnoreCase);
         }
@@ -40,16 +38,13 @@ namespace TestTask.Tests
         [Fact]
         public void CreateUser_ShouldReturnUsersWithUniqueIdsAndNames()
         {
-            // Arrange
             var service = new UserService();
             string userNameA = "Alice";
             string userNameB = "Bob";
 
-            // Act
             var userA = service.CreateUser(userNameA);
             var userB = service.CreateUser(userNameB);
 
-            // Assert
             Assert.NotNull(userA);
             Assert.NotNull(userB);
 
@@ -66,14 +61,11 @@ namespace TestTask.Tests
         [Fact]
         public void GetUserById_ShouldReturnUser_WhenUserExists()
         {
-            // Arrange
             var service = new UserService();
             var createdUser = service.CreateUser("Bob");
 
-            // Act
             var user = service.GetUserById(createdUser.Id);
 
-            // Assert
             Assert.NotNull(user);
             Assert.Equal(createdUser.Id, user.Id);
             Assert.Equal("Bob", user.Name);
@@ -82,13 +74,10 @@ namespace TestTask.Tests
         [Fact]
         public void GetUserById_ShouldReturnNull_WhenUserDoesNotExist()
         {
-            // Arrange
             var service = new UserService();
 
-            // Act
             var user = service.GetUserById(999);
 
-            // Assert
             Assert.Null(user);
         }
     }
